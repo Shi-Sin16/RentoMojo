@@ -1,7 +1,7 @@
-import React,{useState,useEffect} from 'react';
+import React,{Component,useState,useEffect} from 'react';
 import Posts from './Posts';
 import {
-    BrowserRouter as Router,
+    BrowserRouter,
     Switch,
     Route,
     Link
@@ -43,13 +43,23 @@ fetch('https://jsonplaceholder.typicode.com/users').then((res)=>{
           userInfo.filter(temp => temp.name.includes(name) && temp.company.name.includes(company)).map((output)=>{
               return(
                   <>
-                <div className="container" style={{boxShadow :"10px 10px 8px #888888"}}>
+                <div className="container" style={{boxShadow :"10px 10px 8px #999999"}}>
                     <div className="row bg-light" >
                     <div className="col">{output.name}</div>
                     <div className="col">{output.company.name}</div>
-                    <div className="col">{output.website}</div>
-                    {/* <div className="col"></div> */}
-                     </div>
+                    {/* <div className="col">{output.website}</div> */}
+                    <div className="col">
+                        <BrowserRouter>
+                        <Link to='/{output.website}'>{output.website}</Link>
+
+                        <Switch>
+                            <Route path='/{output.website}'>
+                                <Posts />
+                            </Route>
+                        </Switch>
+                        </BrowserRouter>
+                    </div>
+                    </div>
                 </div>
                   </>
               )
